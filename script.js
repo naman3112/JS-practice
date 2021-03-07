@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+// const fs = require('fs');
+
+// let data = fs.readFileSync("abc.txt","utf-8");
+// fs.writeFileSync("abc.txt",data + " Hello, this is pepcoding");
+// console.log(fs.existsSync("ab.txt"));
+
 let cmds = process.argv.slice(2);
 const fs = require("fs");
 
@@ -38,7 +44,7 @@ function wcat(cmds) {
         }
         let file1 = fs.readFileSync(files[0], "utf-8");
         let file2 = fs.readFileSync(files[1], "utf-8");
-        fs.writeFileSync(files[1], file2 + "\r\n" + file1);
+        fs.writeFileSync(files[1], file2 + "\n" + file1);
         return;
     }
 
@@ -48,7 +54,7 @@ function wcat(cmds) {
     for(i in files) {
         let data = fs.readFileSync(files[i],"utf-8");
         if(options.includes("-s")) {
-            let lines = data.split("\r\n");
+            let lines = data.split("\n");
             // let allText = "";
             for(j in lines) {
                 if(lines[j] != "") {
@@ -64,13 +70,16 @@ function wcat(cmds) {
             // console.log(allText);
             // console.log(lines);
         } else if((options.includes("-n") && !options.includes("-b")) || (options.includes("-n") && options.includes("-b") && (options.indexOf("-n") < options.indexOf("-b")))) {
-            let lines = data.split("\r\n");
+            let lines = data.split("\n");
             for(j in lines) {
                console.log(numbering + ". " + lines[j]);
                numbering++; 
             }
         } else if(options.includes("-b")) {
-            let lines = data.split("\r\n");
+            console.log("data ",data);
+            let lines = data.split("\n");
+            console.log("lines  ",lines)
+
             for(j in lines) {
                 if(lines[j] == "") {
                     console.log(lines[j]);
@@ -86,3 +95,4 @@ function wcat(cmds) {
     }
 }
 wcat(cmds);
+console.log(process.argv);
